@@ -188,8 +188,8 @@ A arquitetura proposta é composta pelos seguintes componentes:
 
 1. Clone o repositório:
 ```bash
--  git clone https://github.com/Renatmf5/aws-cdk-ml-infra-pipelines.git
--  cd aws-cdk-ml-infra-pipelines
+-  git clone https://github.com/Renatmf5/aws-infra-tc3.git
+-  cd aws-infra-tc3
 ```
 2. Instale as dependências:
 ```bash
