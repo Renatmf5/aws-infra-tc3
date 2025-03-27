@@ -140,18 +140,20 @@ A arquitetura proposta é composta pelos seguintes componentes:
 ## Pipeline CI/CD (CodePipeline+CodeDeploy)
 
 - **Descrição**: Pipeline CI/CD para as aplicações do projeto
-  - **CodePipelineFastApiResources.ts:**: Classe responsável por configurar um pipeline CI/CD utilizando AWS CodePipeline e AWS CodeDeploy para a aplicação FastAPI.
-  - **CodePipelineNextJsResources.ts:**: Classe responsável por configurar um pipeline CI/CD utilizando AWS CodePipeline e AWS CodeDeploy para a aplicação Next.js.
+  - **CodePipelineFastApiApp.ts:**: Classe responsável por configurar um pipeline CI/CD utilizando AWS CodePipeline e AWS CodeDeploy para a aplicação FastAPI.
+  - **CodePipelineNextjsApp.ts:**: Classe responsável por configurar um pipeline CI/CD utilizando AWS CodePipeline e AWS CodeDeploy para a aplicação Next.js.
+  - **CodePipelineTradingApp.ts:**: Classe responsável por configurar um pipeline CI/CD utilizando AWS CodePipeline e AWS CodeDeploy para a aplicação de TRading.
 - **Configuração**:
   - **Pipeline**: 
     - **Artefatos**: Define o artefato de origem do pipeline.
-    - **Ação de Origem**: Configura uma ação de origem do GitHub para monitorar o repositório da aplicação FastAPI e Next.Js.
+    - **Ação de Origem**: Configura uma ação de origem do GitHub para monitorar o repositório da aplicação FastAPI, Next.Js e TradingApp
     - **Aplicação e Grupo de Deployment**: Cria uma aplicação no CodeDeploy e um grupo de deployment que referencia as tags da instância EC2 para cada aplicação.
     - **Estágio de Deploy:**: Define o estágio de deploy no pipeline utilizando o CodeDeploy.
 - **Ambiente .env**: Variáveis de ambiente utilizadas no código necessárias para deploy da stack:
   - **GITHUB_USERNAME**: Nome de usuário do GitHub.
   - **REPOSITORY_FAST_API**: Nome do repositório da aplicação FastAPI.
   - **REPOSITORY_NEXT_WEBAPP**: Nome do repositório da aplicação NextJs.
+  - **REPOSITORY_TRADING_APP**: Nome do repositório da aplicação de trading real time. 
   - **github-token**: Token de acesso ao GitHub armazenado no AWS Secrets Manager.
 
 ## Parameter Store
@@ -160,20 +162,9 @@ A arquitetura proposta é composta pelos seguintes componentes:
   - **ParameterStoreStack.ts**: Classe responsável por criar parâmetros no AWS Systems Manager Parameter Store para o projeto.
 - **Configuração**:
   - **Parametros**:
-    - **DatabaseUrl**: Cria um parâmetro para a URL do banco de dados da FastAPi SQLLite.
-    - **JwtSecret**: Cria um parâmetro para o segredo JWT. (Usado na FastApi).
-    - **BucketName**: Cria um parâmetro para o nome do bucket S3. Usado nas demais aplicações via SDK.
-    - **Env**: Ambiente da aplicação.
+    - **BinanceKey**: Cria um parâmetro para a URL do banco de dados da FastAPi SQLLite.
+    - **BinanceSecretKey**: Cria um parâmetro para o segredo JWT. (Usado na FastApi).
 
-
-## Estrutura do Projeto
-
-- **bin/**: Encontra-se o código principal de provisionamento de infra. dividido nos
-
-- **lib/**: Descrição do conteúdo e propósito deste diretório.
-- **src/resources/server/**: Descrição do conteúdo e propósito deste diretório.
-- **test/**: Descrição do conteúdo e propósito deste diretório.
-- **Arquivos de configuração**: Breve explicação sobre arquivos como `.gitignore`, `cdk.json`, `package.json`, etc.
 
 ## Pré-requisitos
 
