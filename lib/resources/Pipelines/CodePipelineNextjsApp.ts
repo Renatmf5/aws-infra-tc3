@@ -7,7 +7,7 @@ import { GitHubSourceAction, CodeDeployServerDeployAction } from "aws-cdk-lib/aw
 import * as iam from "aws-cdk-lib/aws-iam";
 
 
-export class CICDTradingAppStack extends Stack {
+export class CICDNextJsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -19,7 +19,7 @@ export class CICDTradingAppStack extends Stack {
     const sourceAction = new GitHubSourceAction({
       actionName: 'GitHub_Source',
       owner: process.env.GITHUB_USERNAME || ' ',
-      repo: process.env.REPOSITORY_TRADING_APP || ' ',
+      repo: process.env.REPOSITORY_NEXT_WEBAPP || ' ',
       branch: 'main', // ou a branch que deseja monitorar
       oauthToken: cdk.SecretValue.secretsManager('github/ingest-data-token', {
         jsonField: 'github_token', // Campo chave dentro do segredo onde o token está armazenado
@@ -28,15 +28,15 @@ export class CICDTradingAppStack extends Stack {
     });
 
     // Definindo a aplicação e grupo de deployment do CodeDeploy
-    const application = new ServerApplication(this, 'TradingApplication', {
-      applicationName: 'TradingApp',
+    const application = new ServerApplication(this, 'NextJsApplication', {
+      applicationName: 'NextJsApp',
     });
 
     const deploymentGroup = new ServerDeploymentGroup(this, 'MyDeploymentGroup', {
       application: application,
-      deploymentGroupName: 'MyTradingDeploymentGroup',
+      deploymentGroupName: 'MyNextJsDeploymentGroup',
       ec2InstanceTags: new InstanceTagSet({
-        'Grupo': ['TradingServer'], // Referencia as tags da instância EC2
+        'Grupo': ['NextJsServer'], // Referencia as tags da instância EC2
       }),
     });
 
@@ -53,7 +53,7 @@ export class CICDTradingAppStack extends Stack {
 
     // Criando o pipeline e integrando os estágios
     const pipeline = new Pipeline(this, 'MyPipeline', {
-      pipelineName: 'MyTradingPipeline',
+      pipelineName: 'MyNextJsPipeline',
       stages: [
         {
           stageName: 'Source',

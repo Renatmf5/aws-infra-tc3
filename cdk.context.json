@@ -23,5 +23,9 @@
   "hosted-zone:account=324037302745:domainName=grupo-ever-rmf.com:privateZone=false:region=ap-south-1": {
     "Id": "/hostedzone/Z0961268LGKJ8EFBG34J",
     "Name": "grupo-ever-rmf.com."
+  },
+  "hosted-zone:account=324037302745:domainName=grupo-ever-rmf.com:region=ap-south-1": {
+    "Id": "/hostedzone/Z0961268LGKJ8EFBG34J",
+    "Name": "grupo-ever-rmf.com."
   }
 }

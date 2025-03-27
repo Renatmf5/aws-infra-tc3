@@ -3,7 +3,6 @@ import { Construct } from 'constructs';
 import { ServerResources } from '../resources/Server/ServerResources';
 import { envValidator } from '../resources/Server/envValidator';
 import { Vpc, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
-import { CICDIngestDataStack } from '../resources/Pipelines/CodePipelineIngestDataApp';
 
 
 export interface EC2Props extends StackProps {
@@ -15,7 +14,7 @@ export interface EC2Props extends StackProps {
   sshSecurityGroup: SecurityGroup;
 }
 
-export class IngestDataAppStack extends Stack {
+export class TradingAppStack extends Stack {
   constructor(scope: Construct, id: string, props: EC2Props) {
     super(scope, id, props);
 
@@ -33,6 +32,7 @@ export class IngestDataAppStack extends Stack {
       cpuType,
       instanceSize: instanceSize.toLowerCase(),
       language: 'python',
+      tag: 'trading',
     });
 
     // Parâmetro de saída: Comandos SSM e SSH
@@ -44,13 +44,6 @@ export class IngestDataAppStack extends Stack {
       value: `ssh ec2-user@${serverResources.instance.instancePublicDnsName}`,
     });
 
-
-    // Criação do pipeline de CI/CD
-    const cicdIngestDataStack = new CICDIngestDataStack(this, 'CICDIngestDataStack', {
-      env: props.env,
-    });
-
-    cicdIngestDataStack.addDependency(this);
 
   }
 } 

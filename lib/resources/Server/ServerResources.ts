@@ -38,6 +38,7 @@ interface ServerProps {
   cpuType: string;
   instanceSize: string;
   language: 'python' | 'nodejs';
+  tag: 'fastapi' | 'nextjs' | 'trading';
 }
 
 let cpuType: AmazonLinuxCpuType;
@@ -222,10 +223,12 @@ export class ServerResources extends Construct {
     // Add the SSH Security Group to the EC2 instance
     this.instance.addSecurityGroup(props.sshSecurityGroup);
 
-    if (props.language === 'python') {
+    if (props.language === 'python' && props.tag === 'fastapi') {
       Tags.of(this.instance).add('Grupo', 'FastAPIServer');
-    } else if (props.language === 'nodejs') {
+    } else if (props.language === 'nodejs' && props.tag === 'nextjs') {
       Tags.of(this.instance).add('Grupo', 'NextJsServer');
+    } else {
+      Tags.of(this.instance).add('Grupo', 'TradingServer');
     }
   }
 }

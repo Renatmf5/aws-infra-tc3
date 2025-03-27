@@ -1,4 +1,4 @@
-import { EC2Props } from '../../stacks/IngestDataAppStack';
+import { EC2Props } from '../../stacks/TradingAppStack';
 
 export enum InstanceSize {
   'MICRO' = 'micro',
